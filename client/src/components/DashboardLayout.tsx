@@ -28,8 +28,11 @@ import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Page 1", path: "/" },
-  { icon: Users, label: "Page 2", path: "/some-path" },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+  { icon: Users, label: "Hijos", path: "/dashboard/children" },
+  { icon: LayoutDashboard, label: "Finanzas", path: "/dashboard/finances" },
+  { icon: LayoutDashboard, label: "Finanzas Avanzada", path: "/dashboard/finances-advanced" },
+  { icon: Users, label: "Muro Familiar", path: "/family-wall" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
