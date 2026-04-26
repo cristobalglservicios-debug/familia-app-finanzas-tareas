@@ -81,7 +81,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Button
             onClick={() => setLocation("/dashboard/finances")}
             className="bg-primary text-primary-foreground hover:opacity-90 py-6 font-semibold"
@@ -95,10 +95,16 @@ export default function AdminDashboard() {
             Gestionar Hijos
           </Button>
           <Button
-            onClick={() => setLocation("/dashboard/finances")}
+            onClick={() => setLocation("/dashboard/finances-advanced")}
             className="bg-accent text-accent-foreground hover:opacity-90 py-6 font-semibold"
           >
-            Ver Finanzas
+            Finanzas Avanzada
+          </Button>
+          <Button
+            onClick={() => setLocation("/family-wall")}
+            className="bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 py-6 font-semibold"
+          >
+            Muro Familiar
           </Button>
         </div>
 

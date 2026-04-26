@@ -222,3 +222,113 @@ export const familySettings = mysqlTable("familySettings", {
 
 export type FamilySettings = typeof familySettings.$inferSelect;
 export type InsertFamilySettings = typeof familySettings.$inferInsert;
+
+
+/**
+ * Weekly budgets - tracks budget limits per week
+ */
+export const weeklyBudgets = mysqlTable("weeklyBudgets", {
+  id: int("id").autoincrement().primaryKey(),
+  familyId: int("familyId").notNull(),
+  weekStartDate: date("weekStartDate").notNull(), // Monday of the week
+  totalLimit: decimal("totalLimit", { precision: 10, scale: 2 }).notNull(),
+  spent: decimal("spent", { precision: 10, scale: 2 }).default("0.00"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type WeeklyBudget = typeof weeklyBudgets.$inferSelect;
+export type InsertWeeklyBudget = typeof weeklyBudgets.$inferInsert;
+
+/**
+ * Fixed payments - recurring payments like rent, utilities, internet
+ */
+export const fixedPayments = mysqlTable("fixedPayments", {
+  id: int("id").autoincrement().primaryKey(),
+  familyId: int("familyId").notNull(),
+  categoryId: int("categoryId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(), // e.g., "Renta", "Luz", "Internet"
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  dueDay: int("dueDay").notNull(), // Day of month (1-31)
+  frequency: mysqlEnum("frequency", ["monthly", "quarterly", "yearly"]).default("monthly"),
+  isActive: boolean("isActive").default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type FixedPayment = typeof fixedPayments.$inferSelect;
+export type InsertFixedPayment = typeof fixedPayments.$inferInsert;
+
+/**
+ * Expense splits - tracks how expenses are divided among family members
+ */
+export const expenseSplits = mysqlTable("expenseSplits", {
+  id: int("id").autoincrement().primaryKey(),
+  expenseId: int("expenseId").notNull(),
+  childId: int("childId"), // If null, it's for the whole family
+  splitAmount: decimal("splitAmount", { precision: 10, scale: 2 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ExpenseSplit = typeof expenseSplits.$inferSelect;
+export type InsertExpenseSplit = typeof expenseSplits.$inferInsert;
+
+/**
+ * Family wall posts - for sharing achievements and photos
+ */
+export const wallPosts = mysqlTable("wallPosts", {
+  id: int("id").autoincrement().primaryKey(),
+  familyId: int("familyId").notNull(),
+  childId: int("childId").notNull(),
+  content: text("content").notNull(),
+  postType: mysqlEnum("postType", ["achievement", "photo", "message", "evidence"]).default("message"),
+  imageUrl: varchar("imageUrl", { length: 500 }), // URL to uploaded image
+  likes: int("likes").default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type WallPost = typeof wallPosts.$inferSelect;
+export type InsertWallPost = typeof wallPosts.$inferInsert;
+
+/**
+ * Wall comments - comments on wall posts
+ */
+export const wallComments = mysqlTable("wallComments", {
+  id: int("id").autoincrement().primaryKey(),
+  postId: int("postId").notNull(),
+  childId: int("childId").notNull(), // Who commented
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type WallComment = typeof wallComments.$inferSelect;
+export type InsertWallComment = typeof wallComments.$inferInsert;
+
+/**
+ * Wall likes - tracks who liked which posts
+ */
+export const wallLikes = mysqlTable("wallLikes", {
+  id: int("id").autoincrement().primaryKey(),
+  postId: int("postId").notNull(),
+  childId: int("childId").notNull(), // Who liked
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type WallLike = typeof wallLikes.$inferSelect;
+export type InsertWallLike = typeof wallLikes.$inferInsert;
+
+/**
+ * Task evidence - photos/evidence of completed tasks
+ */
+export const taskEvidence = mysqlTable("taskEvidence", {
+  id: int("id").autoincrement().primaryKey(),
+  taskCompletionId: int("taskCompletionId").notNull(),
+  imageUrl: varchar("imageUrl", { length: 500 }).notNull(),
+  description: text("description"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type TaskEvidence = typeof taskEvidence.$inferSelect;
+export type InsertTaskEvidence = typeof taskEvidence.$inferInsert;

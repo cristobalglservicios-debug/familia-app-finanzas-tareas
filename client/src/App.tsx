@@ -5,6 +5,8 @@ import Home from "@/pages/Home";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ChildrenManagement from "@/pages/ChildrenManagement";
 import FinancesManagement from "@/pages/FinancesManagement";
+import AdvancedFinances from "@/pages/AdvancedFinances";
+import FamilyWall from "@/pages/FamilyWall";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -16,6 +18,8 @@ function Router() {
       <Route path={"/dashboard"} component={AdminDashboard} />
       <Route path={"/dashboard/children"} component={ChildrenManagement} />
       <Route path={"/dashboard/finances"} component={FinancesManagement} />
+      <Route path={"/dashboard/finances-advanced"} component={AdvancedFinances} />
+      <Route path={"/family-wall"} component={() => <FamilyWall childId={1} familyId={1} />} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
