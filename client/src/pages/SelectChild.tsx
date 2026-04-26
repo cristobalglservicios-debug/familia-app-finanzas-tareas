@@ -43,7 +43,7 @@ export default function SelectChild() {
     localStorage.setItem("selectedChildId", childId.toString());
     // Use setTimeout to ensure navigation happens
     setTimeout(() => {
-      setLocation(`/child/${childId}/tasks`);
+      setLocation(`/child/${childId}/tasks-improved`);
     }, 0);
   };
 
