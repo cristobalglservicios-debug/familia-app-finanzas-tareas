@@ -81,18 +81,24 @@ export default function AdminDashboard() {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Button
             onClick={() => setLocation("/dashboard/finances")}
-            className="bg-primary text-primary-foreground hover:opacity-90 py-6"
+            className="bg-primary text-primary-foreground hover:opacity-90 py-6 font-semibold"
           >
             Registrar Gasto
           </Button>
           <Button
             onClick={() => setLocation("/dashboard/children")}
-            className="bg-secondary text-secondary-foreground hover:opacity-90 py-6"
+            className="bg-secondary text-secondary-foreground hover:opacity-90 py-6 font-semibold"
           >
             Gestionar Hijos
+          </Button>
+          <Button
+            onClick={() => setLocation("/dashboard/finances")}
+            className="bg-accent text-accent-foreground hover:opacity-90 py-6 font-semibold"
+          >
+            Ver Finanzas
           </Button>
         </div>
 
