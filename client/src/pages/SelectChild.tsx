@@ -41,7 +41,10 @@ export default function SelectChild() {
   const handleSelectChild = (childId: number) => {
     // Store the selected child in localStorage
     localStorage.setItem("selectedChildId", childId.toString());
-    setLocation(`/child/${childId}/tasks`);
+    // Use setTimeout to ensure navigation happens
+    setTimeout(() => {
+      setLocation(`/child/${childId}/tasks`);
+    }, 0);
   };
 
   return (
@@ -63,7 +66,6 @@ export default function SelectChild() {
           {children.map((child) => (
             <Card
               key={child.id}
-              onClick={() => handleSelectChild(child.id)}
               className="p-6 border-2 border-border hover:border-primary cursor-pointer transition-all hover:shadow-lg hover:scale-105 transform"
             >
               <div className="flex flex-col items-center text-center">
@@ -98,13 +100,16 @@ export default function SelectChild() {
                 </div>
 
                 {/* Button */}
-                <Button
-                  onClick={() => handleSelectChild(child.id)}
-                  className="w-full bg-primary text-primary-foreground hover:opacity-90 font-semibold"
-                >
-                  Entrar
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                handleSelectChild(child.id);
+              }}
+              className="w-full bg-primary text-primary-foreground hover:opacity-90 font-semibold"
+            >
+              Entrar
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
               </div>
             </Card>
           ))}
