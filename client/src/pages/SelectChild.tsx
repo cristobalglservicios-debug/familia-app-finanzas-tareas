@@ -126,11 +126,11 @@ export default function SelectChild() {
             </div>
             <Button
               onClick={() => {
-                window.location.href = getLoginUrl();
+                setLocation("/admin/login");
               }}
               className="bg-secondary text-secondary-foreground hover:opacity-90 font-semibold"
             >
-              Acceso Admin
+              Acceso Papás
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
