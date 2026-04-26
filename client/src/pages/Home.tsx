@@ -1,31 +1,57 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 import { getLoginUrl } from "@/const";
-import { Streamdown } from 'streamdown';
+import { useLocation } from "wouter";
+import { useEffect } from "react";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // The userAuth hooks provides authentication state
-  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const { user, loading, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
 
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setLocation("/dashboard");
+    }
+  }, [isAuthenticated, user, setLocation]);
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Cargando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
+        {/* Geometric decorative elements */}
+        <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-primary/10 blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-40 h-40 rounded-full bg-secondary/10 blur-3xl"></div>
+
+        <div className="relative z-10 text-center max-w-2xl">
+          <h1 className="heading-primary mb-4">
+            Mi App Familiar
+          </h1>
+          <p className="text-lg text-muted-foreground mb-8 font-light">
+            Organiza las finanzas de tu hogar y motiva a tus hijos con un sistema de tareas gamificado.
+          </p>
+          <p className="text-md text-muted-foreground mb-12 font-light">
+            Controla gastos, asigna actividades y recompensa con tiempo de pantalla de forma divertida.
+          </p>
+
+          <a href={getLoginUrl()}>
+            <Button className="bg-primary text-primary-foreground hover:opacity-90 px-8 py-3 text-lg">
+              Comenzar
+            </Button>
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
 }
