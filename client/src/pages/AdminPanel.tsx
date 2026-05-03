@@ -165,6 +165,9 @@ export default function AdminPanel() {
     category: "alimentacion",
   });
   const [weeklyBudget, setWeeklyBudget] = useState(500);
+  const [editingBudget, setEditingBudget] = useState(false);
+  const [tempBudget, setTempBudget] = useState(500);
+  const [budgetPeriod, setBudgetPeriod] = useState<'weekly' | 'biweekly' | 'monthly'>('weekly');
   const [wallPosts, setWallPosts] = useState<WallPost[]>([
     {
       id: 1,
@@ -273,6 +276,20 @@ export default function AdminPanel() {
 
   const removeImage = (index: number) => {
     setNewWallImages(newWallImages.filter((_, i) => i !== index));
+  };
+
+  const handleSaveBudget = () => {
+    setWeeklyBudget(tempBudget);
+    setEditingBudget(false);
+    toast.success('Presupuesto actualizado');
+  };
+
+  const getPendingPayments = () => {
+    return fixedPayments.filter(p => !p.paid);
+  };
+
+  const getTotalPendingPayments = () => {
+    return getPendingPayments().reduce((sum, p) => sum + p.amount, 0);
   };
 
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
@@ -522,12 +539,41 @@ export default function AdminPanel() {
           <>
             <div className="space-y-6">
               {/* Budget Overview */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-4 gap-4">
                 <Card className="p-6 border-2 border-primary/30">
-                  <p className="text-muted-foreground font-light text-sm mb-1">
-                    Presupuesto Semanal
-                  </p>
-                  <p className="heading-secondary text-primary">${weeklyBudget}</p>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-muted-foreground font-light text-sm">
+                      Presupuesto
+                    </p>
+                    <button
+                      onClick={() => {
+                        setEditingBudget(!editingBudget);
+                        setTempBudget(weeklyBudget);
+                      }}
+                      className="text-xs text-primary hover:underline"
+                    >
+                      {editingBudget ? 'Cancelar' : 'Editar'}
+                    </button>
+                  </div>
+                  {editingBudget ? (
+                    <div className="flex gap-2">
+                      <Input
+                        type="number"
+                        value={tempBudget}
+                        onChange={(e) => setTempBudget(parseFloat(e.target.value) || 0)}
+                        className="flex-1"
+                      />
+                      <Button
+                        onClick={handleSaveBudget}
+                        size="sm"
+                        className="bg-primary text-primary-foreground"
+                      >
+                        Guardar
+                      </Button>
+                    </div>
+                  ) : (
+                    <p className="heading-secondary text-primary">${weeklyBudget}</p>
+                  )}
                 </Card>
                 <Card className="p-6 border-2 border-secondary/30">
                   <p className="text-muted-foreground font-light text-sm mb-1">
@@ -543,6 +589,46 @@ export default function AdminPanel() {
                     ${(weeklyBudget - totalExpenses).toFixed(2)}
                   </p>
                 </Card>
+                <Card className="p-6 border-2 border-red-300/30">
+                  <p className="text-muted-foreground font-light text-sm mb-1">
+                    Pagos Pendientes
+                  </p>
+                  <p className="heading-secondary text-red-500">${getTotalPendingPayments().toFixed(2)}</p>
+                </Card>
+              </div>
+
+              {/* Period Selector */}
+              <div className="flex gap-2 mb-6">
+                <Button
+                  onClick={() => setBudgetPeriod('weekly')}
+                  className={`flex-1 ${
+                    budgetPeriod === 'weekly'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
+                >
+                  Semanal
+                </Button>
+                <Button
+                  onClick={() => setBudgetPeriod('biweekly')}
+                  className={`flex-1 ${
+                    budgetPeriod === 'biweekly'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
+                >
+                  Quincenal
+                </Button>
+                <Button
+                  onClick={() => setBudgetPeriod('monthly')}
+                  className={`flex-1 ${
+                    budgetPeriod === 'monthly'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
+                >
+                  Mensual
+                </Button>
               </div>
 
               {/* Add Expense */}
@@ -628,6 +714,36 @@ export default function AdminPanel() {
                   ))}
                 </div>
               </div>
+
+              {/* Pending Payments Summary */}
+              {getPendingPayments().length > 0 && (
+                <Card className="p-6 border-2 border-orange-300/30 bg-orange-50/30 mb-6">
+                  <h3 className="font-semibold text-lg mb-3 text-orange-700">⚠️ Pagos Pendientes</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {getPendingPayments().map((payment) => (
+                      <div key={payment.id} className="text-sm">
+                        <p className="font-semibold">{payment.title}</p>
+                        <p className="text-orange-600">${payment.amount} - Vence día {payment.dueDate}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
+
+              {/* Pending Payments Summary */}
+              {getPendingPayments().length > 0 && (
+                <Card className="p-6 border-2 border-orange-300/30 bg-orange-50/30 mb-6">
+                  <h3 className="font-semibold text-lg mb-3 text-orange-700">⚠️ Pagos Pendientes</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {getPendingPayments().map((payment) => (
+                      <div key={payment.id} className="text-sm">
+                        <p className="font-semibold">{payment.title}</p>
+                        <p className="text-orange-600">${payment.amount} - Vence día {payment.dueDate}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
 
               {/* Fixed Payments */}
               <div>
