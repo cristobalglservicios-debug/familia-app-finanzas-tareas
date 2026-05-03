@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ChevronLeft, Star, Trophy, Heart, MessageCircle, Share2 } from "lucide-react";
 import { toast } from "sonner";
+import { useFamilyWall } from "@/contexts/FamilyWallContext";
 
 interface Task {
   id: number;
@@ -113,33 +114,7 @@ const childrenData = {
   },
 };
 
-const wallPosts: WallPost[] = [
-  {
-    id: 1,
-    childId: 1,
-    childName: "Fabio",
-    title: "¡Completé todas mis tareas! 🎉",
-    description: "Hoy fue un día increíble, completé todas mis tareas y gané 55 puntos",
-    likes: 12,
-    comments: [
-      { id: 1, author: "Frida", text: "¡Qué bien! 🙌", emoji: "👏" },
-      { id: 2, author: "Mamá", text: "¡Muy orgullosa de ti!", emoji: "❤️" },
-    ],
-    timestamp: "Hace 2 horas",
-  },
-  {
-    id: 2,
-    childId: 2,
-    childName: "Frida",
-    title: "Subí de nivel 🌟",
-    description: "¡Acabo de llegar al nivel 4! Gracias a todos por apoyarme",
-    likes: 8,
-    comments: [
-      { id: 1, author: "Julieta", text: "¡Felicidades! 🎊", emoji: "🎉" },
-    ],
-    timestamp: "Hace 5 horas",
-  },
-];
+
 
 export default function ChildTasksImproved({ childId = 1 }: { childId: number }) {
   const [, setLocation] = useLocation();
@@ -148,6 +123,7 @@ export default function ChildTasksImproved({ childId = 1 }: { childId: number })
   const [celebrationEmojis, setCelebrationEmojis] = useState<Array<{ id: string; emoji: string; x: number; y: number }>>([]);
   const [showRewards, setShowRewards] = useState(false);
   const [showWall, setShowWall] = useState(false);
+  const { posts: wallPosts, addPost: addWallPost } = useFamilyWall();
   const [newPostText, setNewPostText] = useState("");
 
   const child = childrenData[currentChildId as keyof typeof childrenData];
@@ -190,6 +166,15 @@ export default function ChildTasksImproved({ childId = 1 }: { childId: number })
 
   const handlePostWall = () => {
     if (newPostText.trim()) {
+      const childData = childrenData[currentChildId as keyof typeof childrenData];
+      addWallPost({
+        childId: currentChildId,
+        childName: childData.name,
+        author: 'child',
+        title: newPostText.split('\n')[0] || "Mi logro",
+        description: newPostText,
+        images: [],
+      });
       toast.success("¡Publicación compartida! 🎉");
       setNewPostText("");
     }

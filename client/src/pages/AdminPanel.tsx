@@ -1,5 +1,6 @@
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
+import { useFamilyWall } from "@/contexts/FamilyWallContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -168,24 +169,10 @@ export default function AdminPanel() {
   const [editingBudget, setEditingBudget] = useState(false);
   const [tempBudget, setTempBudget] = useState(500);
   const [budgetPeriod, setBudgetPeriod] = useState<'weekly' | 'biweekly' | 'monthly'>('weekly');
-  const [wallPosts, setWallPosts] = useState<WallPost[]>([
-    {
-      id: 1,
-      childId: 1,
-      childName: "Fabio",
-      title: "¡Completé todas mis tareas! 🎉",
-      description: "Hoy fue un día increíble, completé todas mis tareas y gané 55 puntos",
-      images: [],
-      likes: 12,
-      comments: [
-        { id: 1, author: "Frida", text: "¡Qué bien! 🙌", emoji: "👏" },
-        { id: 2, author: "Mamá", text: "¡Muy orgullosa de ti!", emoji: "❤️" },
-      ],
-      timestamp: "Hace 2 horas",
-    },
-  ]);
+
   const [newWallPost, setNewWallPost] = useState("");
   const [newWallImages, setNewWallImages] = useState<string[]>([]);
+  const { posts: wallPosts, addPost: addWallPost } = useFamilyWall();
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("adminLoggedIn");
@@ -846,6 +833,13 @@ export default function AdminPanel() {
                 <Button
                   onClick={() => {
                     if (newWallPost.trim() || newWallImages.length > 0) {
+                      addWallPost({
+                        childName: "Mamá",
+                        author: 'parent',
+                        title: newWallPost.split('\n')[0] || "Mensaje de mamá",
+                        description: newWallPost,
+                        images: newWallImages,
+                      });
                       toast.success("¡Publicación compartida! 🎉");
                       setNewWallPost("");
                       setNewWallImages([]);

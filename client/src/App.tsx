@@ -15,6 +15,7 @@ import ChildTasksImproved from "@/pages/ChildTasksImproved";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { FamilyWallProvider } from "./contexts/FamilyWallContext";
 
 function Router() {
   return (
@@ -49,10 +50,12 @@ function App() {
         defaultTheme="light"
         // switchable
       >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <FamilyWallProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </FamilyWallProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
