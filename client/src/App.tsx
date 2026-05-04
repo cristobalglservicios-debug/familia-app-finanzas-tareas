@@ -10,7 +10,7 @@ import FamilyWall from "@/pages/FamilyWall";
 import SelectChild from "@/pages/SelectChild";
 import ChildTasks from "@/pages/ChildTasks";
 import AdminLogin from "@/pages/AdminLogin";
-import AdminPanel from "@/pages/AdminPanel";
+import AdminPanelPremium from "./pages/AdminPanelPremium";
 import ChildTasksImproved from "@/pages/ChildTasksImproved";
 import Welcome from "@/pages/Welcome";
 import { Route, Switch } from "wouter";
@@ -35,9 +35,7 @@ function Router() {
       <Route path={"/dashboard/finances-advanced"} component={AdvancedFinances} />
       <Route path={"/family-wall"} component={() => <FamilyWall childId={1} familyId={1} />} />
       <Route path={"/admin/login"} component={AdminLogin} />
-      <Route path={"/admin/tasks"} component={AdminPanel} />
-      <Route path={"/admin/dashboard"} component={AdminPanel} />
-      <Route path={"/admin/family-wall"} component={AdminPanel} />
+      <Route path="/admin/panel" component={AdminPanelPremium} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
