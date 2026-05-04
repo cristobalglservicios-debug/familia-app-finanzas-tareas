@@ -18,7 +18,7 @@ export default function AdminLogin() {
     if (pin === ADMIN_PIN) {
       localStorage.setItem("adminLoggedIn", "true");
       toast.success("¡Bienvenido al panel de papás! 👨‍👩‍👧‍👦");
-      setLocation("/admin/dashboard");
+      setLocation("/admin/panel");
     } else {
       setAttempts(attempts + 1);
       setError("PIN incorrecto. Intenta de nuevo.");
