@@ -20,14 +20,14 @@
 
 ## UI - Panel de Administrador (Ana)
 - [x] Crear layout principal con sidebar
-- [ ] Implementar sección de registro de gastos (formulario rápido)
-- [ ] Implementar dashboard financiero con gráficos
-- [ ] Implementar sección de presupuesto mensual
-- [ ] Implementar calendario de pagos recurrentes
-- [ ] Implementar gestión de hijos (CRUD)
-- [ ] Implementar gestión de tareas (CRUD)
-- [ ] Implementar gestión de recompensas (CRUD)
-- [ ] Implementar vista de rachas y progresión de hijos
+- [x] Implementar sección de registro de gastos (formulario rápido)
+- [x] Implementar dashboard financiero con gráficos
+- [x] Implementar sección de presupuesto mensual
+- [x] Implementar calendario de pagos recurrentes
+- [x] Implementar gestión de hijos (CRUD)
+- [x] Implementar gestión de tareas (CRUD)
+- [x] Implementar gestión de recompensas (CRUD)
+- [x] Implementar vista de rachas y progresión de hijos
 
 ## UI - Dashboard de Hijos
 - [x] Crear layout personalizado por hijo
@@ -60,12 +60,12 @@
 - [x] Aplicar tema global a toda la aplicación
 
 ## Pruebas
-- [ ] Escribir tests para procedimientos tRPC
-- [ ] Escribir tests para cálculo de puntos y rachas
-- [ ] Escribir tests para cálculo de niveles
-- [ ] Validar flujos de usuario completos
+- [x] Escribir tests para procedimientos tRPC
+- [x] Escribir tests para cálculo de puntos y rachas
+- [x] Escribir tests para cálculo de niveles
+- [x] Validar flujos de usuario completos
 
 ## Deployment
-- [ ] Crear checkpoint inicial
-- [ ] Validar funcionamiento en producción
-- [ ] Documentar instrucciones de uso
+- [x] Crear checkpoint inicial
+- [x] Validar funcionamiento en producción
+- [x] Documentar instrucciones de uso
