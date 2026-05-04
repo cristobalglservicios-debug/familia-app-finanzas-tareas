@@ -12,6 +12,7 @@ import ChildTasks from "@/pages/ChildTasks";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminPanel from "@/pages/AdminPanel";
 import ChildTasksImproved from "@/pages/ChildTasksImproved";
+import Welcome from "@/pages/Welcome";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -20,6 +21,7 @@ import { FamilyWallProvider } from "./contexts/FamilyWallContext";
 function Router() {
   return (
     <Switch>
+      <Route path={"/welcome"} component={Welcome} />
       <Route path={"/"} component={SelectChild} />
       <Route path={"/child/:childId/tasks"} component={(props: any) => (
         <ChildTasks childId={parseInt(props.params.childId)} />

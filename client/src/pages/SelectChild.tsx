@@ -116,25 +116,35 @@ export default function SelectChild() {
         </div>
 
         {/* Admin Login Section */}
-        <Card className="p-8 bg-gradient-to-r from-secondary/20 to-secondary/10 border-secondary/30">
-          <div className="flex items-center justify-between">
+        <div className="space-y-4">
+          <Card className="p-8 bg-gradient-to-r from-secondary/20 to-secondary/10 border-secondary/30">
+            <div className="flex items-center justify-between">
             <div>
               <h3 className="heading-secondary mb-1">¿Eres Ana?</h3>
               <p className="text-muted-foreground font-light">
                 Accede al panel de administración para supervisar finanzas y tareas
               </p>
             </div>
-            <Button
-              onClick={() => {
-                setLocation("/admin/login");
-              }}
-              className="bg-secondary text-secondary-foreground hover:opacity-90 font-semibold"
-            >
-              Acceso Papás
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        </Card>
+              <Button
+                onClick={() => {
+                  setLocation("/admin/login");
+                }}
+                className="bg-secondary text-secondary-foreground hover:opacity-90 font-semibold"
+              >
+                Acceso Papás
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </Card>
+          <Button
+            onClick={() => setLocation("/welcome")}
+            variant="outline"
+            className="w-full"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Volver
+          </Button>
+        </div>
       </div>
     </div>
   );
