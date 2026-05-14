@@ -69,3 +69,12 @@
 - [x] Crear checkpoint inicial
 - [x] Validar funcionamiento en producción
 - [x] Documentar instrucciones de uso
+
+## Dashboard Principal (HomeSync)
+- [ ] Crear página de Dashboard Principal con perfiles de familia
+- [ ] Mostrar roles y responsabilidades por persona
+- [ ] Implementar checklist gamificado con puntos
+- [ ] Agregar meta semanal visual
+- [ ] Crear cronograma de pantallas/actividades
+- [ ] Agregar sección de reglas innegociables
+- [ ] Integrar Dashboard en navegación principal

@@ -286,25 +286,33 @@ export default function AdminPanelPremium() {
           </div>
 
           {/* Premium Tabs */}
-          <div className="flex gap-1 bg-background/40 backdrop-blur p-1 rounded-lg w-fit">
-            {[
-              { id: "tasks", label: "Tareas", icon: Users },
-              { id: "finances", label: "Finanzas", icon: DollarSign },
-              { id: "wall", label: "Muro", icon: MessageSquare },
-            ].map(({ id, label, icon: Icon }) => (
-              <Button
-                key={id}
-                onClick={() => setActiveTab(id as any)}
-                className={`gap-2 transition-all ${
-                  activeTab === id
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-transparent text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </Button>
-            ))}
+          <div className="flex gap-2 flex-wrap items-center">
+            <Button
+              onClick={() => setLocation("/admin/dashboard")}
+              className="gap-2 bg-gradient-to-r from-orange-400 to-pink-400 hover:from-orange-500 hover:to-pink-500 text-white font-semibold"
+            >
+              📊 Dashboard Familia
+            </Button>
+            <div className="flex gap-1 bg-background/40 backdrop-blur p-1 rounded-lg w-fit">
+              {[
+                { id: "tasks", label: "Tareas", icon: Users },
+                { id: "finances", label: "Finanzas", icon: DollarSign },
+                { id: "wall", label: "Muro", icon: MessageSquare },
+              ].map(({ id, label, icon: Icon }) => (
+                <Button
+                  key={id}
+                  onClick={() => setActiveTab(id as any)}
+                  className={`gap-2 transition-all ${
+                    activeTab === id
+                      ? "bg-primary text-primary-foreground shadow-lg"
+                      : "bg-transparent text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {label}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
       </div>

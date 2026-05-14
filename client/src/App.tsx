@@ -13,6 +13,7 @@ import AdminLogin from "@/pages/AdminLogin";
 import AdminPanelPremium from "./pages/AdminPanelPremium";
 import ChildTasksImproved from "@/pages/ChildTasksImproved";
 import Welcome from "@/pages/Welcome";
+import FamilyDashboard from "@/pages/FamilyDashboard";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -36,6 +37,7 @@ function Router() {
       <Route path={"/family-wall"} component={() => <FamilyWall childId={1} familyId={1} />} />
       <Route path={"/admin/login"} component={AdminLogin} />
       <Route path="/admin/panel" component={AdminPanelPremium} />
+      <Route path="/admin/dashboard" component={FamilyDashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
