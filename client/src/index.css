@@ -274,3 +274,141 @@ p, span, li {
 .text-muted {
   @apply text-muted-foreground font-light;
 }
+
+/* ============ PREMIUM ANIMATIONS ============ */
+
+/* Glow pulse for streak elements */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 100, 0, 0.3), 0 0 10px rgba(255, 50, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 100, 0, 0.5), 0 0 40px rgba(255, 50, 0, 0.2);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Fire flicker */
+@keyframes fireFlicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+  25% { transform: scaleY(1.1) scaleX(0.95); opacity: 0.9; }
+  50% { transform: scaleY(0.95) scaleX(1.05); opacity: 1; }
+  75% { transform: scaleY(1.05) scaleX(0.98); opacity: 0.95; }
+}
+
+.fire-flicker {
+  animation: fireFlicker 0.5s ease-in-out infinite;
+}
+
+/* Shimmer effect for cards */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scale pulse for interactive elements */
+@keyframes scalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.scale-pulse {
+  animation: scalePulse 2s ease-in-out infinite;
+}
+
+/* Streak counter animation */
+@keyframes streakGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(255, 100, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 100, 0, 0.8), 0 0 40px rgba(255, 50, 0, 0.4);
+  }
+}
+
+.streak-glow {
+  animation: streakGlow 1.5s ease-in-out infinite;
+}
+
+/* Points popup animation */
+@keyframes pointsPopup {
+  0% { transform: translateY(0) scale(0.5); opacity: 1; }
+  100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+}
+
+.points-popup {
+  animation: pointsPopup 1.2s ease-out forwards;
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Rainbow border for special achievements */
+@keyframes rainbowBorder {
+  0% { border-color: #ff0000; }
+  17% { border-color: #ff8800; }
+  33% { border-color: #ffff00; }
+  50% { border-color: #00ff00; }
+  67% { border-color: #0088ff; }
+  83% { border-color: #8800ff; }
+  100% { border-color: #ff0000; }
+}
+
+.rainbow-border {
+  animation: rainbowBorder 3s linear infinite;
+}
+
+/* Spin and grow for level up */
+@keyframes spinGrow {
+  0% { transform: rotate(0deg) scale(0); opacity: 0; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+.spin-grow {
+  animation: spinGrow 0.8s ease-out;
+}
+
+/* Gradient text animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text-animated {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
